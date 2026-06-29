@@ -1,0 +1,17 @@
+{
+  "name": "local-screenshot-pdf-toolkit",
+  "version": "1.0.0",
+  "description": "本地長截圖與 PDF 工具箱",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "opencc-js": "^1.3.1",
+    "puppeteer": "^22.12.1"
+  },
+  "author": "Antigravity",
+  "license": "ISC"
+}

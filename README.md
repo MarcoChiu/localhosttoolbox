@@ -1,13 +1,18 @@
 # 🛠️ 本地萬能截圖與 PDF 工具箱 (Localhost Tool Box)
 
-[![Privacy First](https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=flat-spec)](https://github.com/)
-[![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20%7C%20Node-blue?style=flat-spec)](https://github.com/)
-[![License](https://img.shields.io/badge/License-ISC-orange?style=flat-spec)](https://github.com/)
+[![Privacy First](https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
+[![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20%7C%20Node-blue?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
+[![License](https://img.shields.io/badge/License-ISC-orange?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
+[![Latest Release](https://img.shields.io/github/v/release/MarcoChiu/localhosttoolbox?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox/releases/latest)
+
 
 一個設計精美、功能強大且**完全在本地端運行**的萬能截圖與 PDF 處理工具箱。採用現代暗色毛玻璃（Glassmorphism）風格設計，搭配流暢的微動畫，為您提供極致的視覺美感與流暢的互動體驗。
 
 > [!IMPORTANT]
 > **隱私第一（Privacy First）**：除了「網頁長截圖」需要透過 Puppeteer 擷取目標網站外，其餘所有 PDF 處理、圖片拼接、壓縮及簡繁轉換功能皆**在瀏覽器端本地完成**，絕不將您的個人隱私檔案上傳至任何第三方伺服器，安全且快速。
+
+> [!TIP]
+> **下載最新版本**：您可以至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新的穩定發布版本（解壓縮後即可使用）。
 
 ---
 
@@ -71,11 +76,13 @@
 
 ### 安裝步驟
 
-1. **複製本專案到本地**
-   ```bash
-   git clone <你的 GitHub 專案網址>
-   cd <專案目錄名稱>
-   ```
+1. **複製本專案或下載 Release 版本**
+   - **方式 A (推薦)**：至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新發布的穩定包並解壓縮。
+   - **方式 B**：使用 Git 複製本專案到本地：
+     ```bash
+     git clone https://github.com/MarcoChiu/localhosttoolbox.git
+     cd localhosttoolbox
+     ```
 
 2. **安裝 Node.js 依賴套件**
    這將會自動下載安裝 Express、Puppeteer 等相關後端套件：

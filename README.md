@@ -71,32 +71,42 @@
 
 ## 🚀 快速開始 (Getting Started)
 
-### 前置準備
-請確保您的系統已安裝 [Node.js](https://nodejs.org/) (建議 v16 以上版本)。
+本工具箱支援以下兩種使用方式，您可以依需求選擇：
 
-### 安裝步驟
+---
 
-1. **複製本專案或下載 Release 版本**
-   - **方式 A (推薦)**：至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新發布的穩定包並解壓縮。
-   - **方式 B**：使用 Git 複製本專案到本地：
+### 🟢 方式 A：免安裝，雙擊即用 (極速推薦)
+如果您**不需要**使用「網頁網址長截圖」功能，本專案**無需進行任何安裝與環境設定**。
+
+1. **下載專案**：至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新發布的穩定包（`.zip` 或 `.tar.gz`），並解壓縮。
+2. **啟動工具**：直接雙擊資料夾內的 `index.html`，即可直接在您的瀏覽器中運行。
+3. **支援功能**：
+   - PDF 合併、PDF 拆分、PDF 轉圖片、圖片轉 PDF、浮水印/頁碼。
+   - 圖片壓縮、圖片拼接、HTML 轉圖、離線簡繁轉換。
+   - 所有運算完全在瀏覽器記憶體本地進行，不經過伺服器，安全且流暢。
+
+---
+
+### ⚡ 方式 B：安裝並啟動本地端伺服器 (完整功能)
+如果您需要使用 **網頁長截圖 (Puppeteer)** 功能，請依照以下步驟部署本地端後端伺服器：
+
+1. **安裝 Node.js**：確保您的電腦已安裝 [Node.js](https://nodejs.org/) (建議安裝 LTS 版本)。
+2. **複製或下載專案**：
+   - 前往 [Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載解壓。
+   - 或使用 Git 複製倉庫：
      ```bash
      git clone https://github.com/MarcoChiu/localhosttoolbox.git
      cd localhosttoolbox
      ```
-
-2. **安裝 Node.js 依賴套件**
-   這將會自動下載安裝 Express、Puppeteer 等相關後端套件：
+3. **安裝 Node.js 依賴套件** (僅需執行一次，這會自動下載無頭瀏覽器 Puppeteer 等套件)：
    ```bash
    npm install
    ```
-
-3. **啟動本地服務**
+4. **啟動本地伺服器**：
    ```bash
    npm start
    ```
-
-4. **開啟瀏覽器體驗**
-   在瀏覽器中輸入以下網址，即可開始使用所有功能：
+5. **開啟瀏覽器體驗**：在瀏覽器中開啟以下網址即可開始使用所有功能（包括網頁長截圖）：
    ```text
    http://localhost:3000
    ```

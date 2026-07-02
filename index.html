@@ -19,8 +19,36 @@
     <div class="ambient-glow-2"></div>
 
     <div class="container app-container">
+        <!-- Mobile sidebar overlay (inside container for correct stacking context) -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Mobile Top Bar (only visible on mobile) -->
+        <div class="mobile-topbar" id="mobile-topbar">
+            <div class="mobile-topbar-brand">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="url(#primary-gradient-mobile)" stroke-width="2"
+                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <defs>
+                        <linearGradient id="primary-gradient-mobile" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#818cf8" />
+                            <stop offset="100%" stop-color="#38bdf8" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+                <h2>本地工具箱</h2>
+            </div>
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="開啟選單" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
         <!-- Sidebar Navigation -->
-        <aside class="app-sidebar">
+        <aside class="app-sidebar" id="app-sidebar">
             <div class="sidebar-header">
                 <div class="logo-box">
                     <svg viewBox="0 0 24 24" width="28" height="28" stroke="url(#primary-gradient)" stroke-width="2"
@@ -36,10 +64,18 @@
                         <path d="M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
-                <div class="sidebar-title">
+                <div class="sidebar-title" style="flex:1;">
                     <h1>本地工具箱</h1>
                     <p>安全快速 • 離線處理</p>
                 </div>
+                <!-- Close button (mobile only) -->
+                <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="關閉選單">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
 
             <div class="sidebar-nav">
@@ -493,43 +529,155 @@
             <!-- TAB: PDF Watermark & Page Numbers -->
             <div id="tab-pdf-watermark" class="tab-content">
                 <div class="tool-layout">
-                    <div class="settings-sidebar">
+                    <!-- Left Settings Sidebar -->
+                    <div class="settings-sidebar" style="min-width: 290px;">
                         <div class="settings-title">🏷️ 浮水印與頁碼設定</div>
-                        <div class="settings-group">
-                            <label>浮水印文字</label>
-                            <input type="text" id="watermark-text" class="form-control" placeholder="例如: 機密文件" value="">
+                        
+                        <!-- Mode Switcher -->
+                        <div class="editor-mode-toggle" style="margin-bottom: 20px;">
+                            <button id="watermark-mode-btn" class="mode-toggle-btn active" style="flex: 1;" type="button">🏷️ 浮水印</button>
+                            <button id="pagenum-mode-btn" class="mode-toggle-btn" style="flex: 1;" type="button">🔢 頁碼</button>
                         </div>
-                        <div class="settings-group">
-                            <label>浮水印顏色</label>
-                            <div class="color-picker-wrapper">
-                                <input type="color" id="watermark-color" class="color-input" value="#ff0000">
-                                <input type="text" id="watermark-color-hex" class="form-control" value="#ff0000"
-                                    style="flex:1;">
+
+                        <!-- ══ WATERMARK MODE PANE ══ -->
+                        <div id="watermark-settings-pane">
+                            <div class="settings-group">
+                                <label>浮水印文字</label>
+                                <input type="text" id="watermark-text" class="form-control" placeholder="例如: 機密文件 Confidential" value="Confidential">
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px;">
+                                <div class="settings-group" style="flex: 1;">
+                                    <label>字體大小 <span class="value" id="val-watermark-size">48pt</span></label>
+                                    <input type="range" id="watermark-size" min="16" max="120" step="4" value="48">
+                                </div>
+                                <div class="settings-group" style="flex: 1;">
+                                    <label>透明度 <span class="value" id="val-watermark-opacity">25%</span></label>
+                                    <input type="range" id="watermark-opacity-slider" min="0.05" max="1" step="0.05" value="0.25">
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <label>旋轉角度 <span class="value" id="val-watermark-rotation">-30°</span></label>
+                                <input type="range" id="watermark-rotation" min="-90" max="90" step="5" value="-30">
+                            </div>
+                            
+                            <div class="settings-group">
+                                <label>浮水印位置</label>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px;">
+                                    <button type="button" class="placement-btn active" data-place="center" style="flex: 1; padding: 8px 4px; background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.6); border-radius: 8px; color: #a5b4fc; font-size: 0.78rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;">🎯 置中</button>
+                                    <button type="button" class="placement-btn" data-place="tile" style="flex: 1; padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;">⊞ 鋪滿</button>
+                                    <button type="button" class="placement-btn" data-place="corners" style="flex: 1; padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;">📐 四角</button>
+                                    <button type="button" class="placement-btn" data-place="header" style="flex: 1; padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;">⬆️ 頁首</button>
+                                    <button type="button" class="placement-btn" data-place="footer" style="flex: 1; padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;">⬇️ 頁尾</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Tile Density Options -->
+                            <div id="tile-options" class="settings-group" style="display: none; background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.15); border-radius: 10px; padding: 12px; margin-top: 10px;">
+                                <label style="margin-bottom: 8px; display: block; color: var(--text-secondary); font-size: 0.8rem">🔲 鋪滿密度</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="flex: 1;">
+                                        <label style="font-size: 0.75rem; color: var(--text-muted)">列數 <span id="val-tile-rows">3</span></label>
+                                        <input type="range" id="tile-rows" min="1" max="6" step="1" value="3">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <label style="font-size: 0.75rem; color: var(--text-muted)">欄數 <span id="val-tile-cols">3</span></label>
+                                        <input type="range" id="tile-cols" min="1" max="6" step="1" value="3">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Corner Checkboxes -->
+                            <div id="corner-options" class="settings-group" style="display: none; background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.15); border-radius: 10px; padding: 12px; margin-top: 10px;">
+                                <label style="margin-bottom: 8px; display: block; color: var(--text-secondary); font-size: 0.8rem">📐 選擇角落</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); margin: 0;"><input type="checkbox" id="corner-tl" checked style="width: 14px; height: 14px;">↖ 左上</label>
+                                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); margin: 0;"><input type="checkbox" id="corner-tr" checked style="width: 14px; height: 14px;">↗ 右上</label>
+                                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); margin: 0;"><input type="checkbox" id="corner-bl" checked style="width: 14px; height: 14px;">↙ 左下</label>
+                                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); margin: 0;"><input type="checkbox" id="corner-br" checked style="width: 14px; height: 14px;">↘ 右下</label>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <label>浮水印顏色</label>
+                                <div class="color-picker-wrapper">
+                                    <input type="color" id="watermark-color" class="color-input" value="#888888">
+                                    <input type="text" id="watermark-color-hex" class="form-control" value="#888888" style="flex:1;">
+                                </div>
                             </div>
                         </div>
-                        <div class="settings-group">
-                            <label>透明度 (Opacity)</label>
-                            <input type="range" id="watermark-opacity" min="0.1" max="1" step="0.1" value="0.3">
+
+                        <!-- ══ PAGENUM MODE PANE ══ -->
+                        <div id="pagenum-settings-pane" style="display: none;">
+                            <div class="settings-group">
+                                <label>格式</label>
+                                <select id="pagenum-format" class="form-control">
+                                    <option value="Page X">Page X</option>
+                                    <option value="Page X / N" selected>Page X / N</option>
+                                    <option value="X">X（純數字）</option>
+                                    <option value="X / N">X / N</option>
+                                    <option value="- X -">- X -</option>
+                                    <option value="第 X 頁">第 X 頁</option>
+                                    <option value="第 X / N 頁">第 X / N 頁</option>
+                                </select>
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">
+                                    X = 當前頁碼，N = 總頁數
+                                </p>
+                            </div>
+                            
+                            <div class="settings-group">
+                                <label>位置</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 5px;">
+                                    <button type="button" class="position-btn active" data-pos="bottom-center" style="padding: 8px 4px; background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.5); border-radius: 8px; color: #a5b4fc; font-size: 0.78rem; cursor: pointer; border-style: solid; font-family: var(--font-sans);">⬇️ 底部置中</button>
+                                    <button type="button" class="position-btn" data-pos="bottom-right" style="padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; border-style: solid; font-family: var(--font-sans);">↘ 底部右側</button>
+                                    <button type="button" class="position-btn" data-pos="top-center" style="padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; border-style: solid; font-family: var(--font-sans);">⬆️ 頂部置中</button>
+                                    <button type="button" class="position-btn" data-pos="top-right" style="padding: 8px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; cursor: pointer; border-style: solid; font-family: var(--font-sans);">↗ 頂部右側</button>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <div class="settings-group" style="flex: 1;">
+                                    <label>起始頁碼</label>
+                                    <input type="number" id="pagenum-start" class="form-control" min="1" max="999" value="1">
+                                </div>
+                                <div class="settings-group" style="flex: 1;">
+                                    <label>字體大小</label>
+                                    <input type="number" id="pagenum-fontsize" class="form-control" min="8" max="36" value="14">
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <label>字體顏色</label>
+                                <div class="color-picker-wrapper">
+                                    <input type="color" id="pagenum-color" class="color-input" value="#333333">
+                                    <input type="text" id="pagenum-color-hex" class="form-control" value="#333333" style="flex:1;">
+                                </div>
+                            </div>
                         </div>
-                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
-                        <div class="settings-group">
-                            <label style="display: flex; gap: 10px; justify-content: flex-start;">
-                                <input type="checkbox" id="add-page-numbers" style="width: 18px; height: 18px;">
-                                <span style="font-size:0.95rem; color:var(--text-secondary);">添加頁碼 (底部中央)</span>
-                            </label>
-                        </div>
-                        <div class="settings-group">
-                            <button id="watermark-generate-btn" class="btn success-btn"
-                                style="width:100%; margin-top:20px;" disabled>
-                                處理並儲存 PDF
+
+                        <!-- Apply Button -->
+                        <div class="settings-group" style="margin-top: 20px; margin-bottom: 0;">
+                            <button id="watermark-generate-btn" class="btn success-btn" style="width:100%;" disabled>
+                                🏷️ 套用浮水印並下載
                             </button>
                         </div>
                     </div>
-                    <div class="main-panel">
-                        <div id="watermark-drop-zone" class="drop-zone">
+
+                    <!-- Right Main Preview Area -->
+                    <div class="main-preview-area" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 5px;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">📄 即時預覽（示意圖）</p>
+                        </div>
+                        
+                        <div style="position: relative;">
+                            <canvas id="watermark-preview-canvas" width="280" height="396" style="display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border-radius: 4px;"></canvas>
+                        </div>
+                        
+                        <div id="watermark-drop-zone" class="drop-zone" style="width: 100%; max-width: 450px; margin-top: 10px;">
                             <div class="drop-zone-content">
-                                <p>拖曳單一 PDF 檔案至此，或點擊選擇</p>
-                                <button class="btn primary-btn">選擇 PDF</button>
+                                <p>拖曳 PDF 檔案至此，或點擊選擇 <span>(本機離線處理，安全不外流)</span></p>
+                                <button class="btn primary-btn" type="button">選擇 PDF</button>
                                 <input type="file" id="watermark-file-input" accept=".pdf" style="display:none;">
                             </div>
                         </div>
@@ -698,7 +846,7 @@
                                 <p>「網頁網址長截圖」功能需要 Puppeteer 後端支援。請按照以下步驟啟動本地伺服器：</p>
                                 <ol>
                                     <li>使用終端機開啟此專案目錄：
-                                        <pre>cd c:\Marco\Developer\screenshot</pre>
+                                        <pre>cd c:\Marco\Developer\localhosttoolbox</pre>
                                     </li>
                                     <li>安裝相依性套件 (僅需一次)：
                                         <pre>npm install</pre>
@@ -854,6 +1002,67 @@
     <script src="js/pdfSplit.js"></script>
     <script src="js/pdfWatermark.js"></script>
     <script src="app.js"></script>
+
+    <!-- Mobile Drawer Navigation -->
+    <script>
+        (function () {
+            const sidebar = document.getElementById('app-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const closeBtn = document.getElementById('sidebar-close-btn');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+
+            function openDrawer() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                hamburgerBtn.classList.add('open');
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                hamburgerBtn.classList.remove('open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            function isMobile() {
+                return window.innerWidth <= 900;
+            }
+
+            hamburgerBtn.addEventListener('click', function () {
+                if (sidebar.classList.contains('open')) {
+                    closeDrawer();
+                } else {
+                    openDrawer();
+                }
+            });
+
+            closeBtn.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+
+            // Close drawer when a tab is selected on mobile
+            tabBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    if (isMobile()) {
+                        setTimeout(closeDrawer, 150);
+                    }
+                });
+            });
+
+            // Reset on resize (desktop: clear any leftover state)
+            window.addEventListener('resize', function () {
+                if (!isMobile()) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    hamburgerBtn.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>

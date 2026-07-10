@@ -44,6 +44,7 @@
 
 html {
     overflow-x: hidden;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -153,8 +154,9 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 1300px;
+    width: 1300px;
+    max-width: 100%;
+    flex-shrink: 0;
     background: var(--panel-bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);

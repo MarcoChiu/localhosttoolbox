@@ -1,3 +1,4 @@
+/* global __BUILD_TIME__ */
 import React, { useState, useEffect } from 'react';
 import PdfMerger from './components/PdfMerger';
 import PdfSplitter from './components/PdfSplitter';
@@ -24,6 +25,11 @@ function App() {
 
   // Build time injection from Vite config
   const buildTime = typeof __BUILD_TIME__ !== 'undefined' ? __BUILD_TIME__ : '';
+
+  // Update document title with build time on mount
+  useEffect(() => {
+    document.title = `本地工具箱 (${buildTime || 'Dev'} build)`;
+  }, []);
 
   const renderActiveTabContent = () => {
     const props = { showStatus, hideStatus };

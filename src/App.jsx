@@ -4,7 +4,6 @@ import PdfSplitter from './components/PdfSplitter';
 import PdfToImage from './components/PdfToImage';
 import ImageToPdf from './components/ImageToPdf';
 import PdfWatermark from './components/PdfWatermark';
-import UrlScreenshot from './components/UrlScreenshot';
 import ImageCompressor from './components/ImageCompressor';
 import ImageStitcher from './components/ImageStitcher';
 import HtmlToImage from './components/HtmlToImage';
@@ -13,34 +12,7 @@ import TextConverter from './components/TextConverter';
 function App() {
   const [activeTab, setActiveTab] = useState('tab-pdf');
   const [status, setStatus] = useState({ text: '', type: '' }); // type: info, success, error, loading
-  const [serverConnected, setServerConnected] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
-    ? window.location.origin
-    : 'http://localhost:3000';
-
-  useEffect(() => {
-    async function checkServerHealth() {
-      try {
-        const response = await fetch(`${API_BASE}/api/health`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.status === 'ok') {
-            setServerConnected(true);
-            return;
-          }
-        }
-      } catch (e) {
-        // Ignore
-      }
-      setServerConnected(false);
-    }
-
-    checkServerHealth();
-    const interval = setInterval(checkServerHealth, 5000);
-    return () => clearInterval(interval);
-  }, [API_BASE]);
 
   const showStatus = (text, type = 'info') => {
     setStatus({ text, type });
@@ -54,7 +26,7 @@ function App() {
   const buildTime = typeof __BUILD_TIME__ !== 'undefined' ? __BUILD_TIME__ : '';
 
   const renderActiveTabContent = () => {
-    const props = { showStatus, hideStatus, API_BASE, serverConnected };
+    const props = { showStatus, hideStatus };
     switch (activeTab) {
       case 'tab-pdf':
         return <PdfMerger {...props} />;
@@ -66,8 +38,6 @@ function App() {
         return <ImageToPdf {...props} />;
       case 'tab-pdf-watermark':
         return <PdfWatermark {...props} />;
-      case 'tab-url':
-        return <UrlScreenshot {...props} />;
       case 'tab-compress':
         return <ImageCompressor {...props} />;
       case 'tab-stitch':
@@ -194,12 +164,6 @@ function App() {
 
             <div className="nav-section">
               <h3 className="nav-section-title">圖片與網頁</h3>
-              <button 
-                className={`tab-btn ${activeTab === 'tab-url' ? 'active' : ''}`} 
-                onClick={() => handleTabClick('tab-url')}
-              >
-                <span className="icon">🌐</span> 網頁長截圖
-              </button>
               <button 
                 className={`tab-btn ${activeTab === 'tab-compress' ? 'active' : ''}`} 
                 onClick={() => handleTabClick('tab-compress')}

@@ -1,17 +1,17 @@
-# 🛠️ 本地萬能截圖與 PDF 工具箱 (React + Vite 版)
+# 🛠️ 本地萬能 PDF 與圖片工具箱 (React + Vite 版)
 
 🚀 **線上直接使用連結：[https://MarcoChiu.github.io/localhosttoolbox/](https://MarcoChiu.github.io/localhosttoolbox/)**
 
 [![Privacy First](https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
-[![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20Node-blue?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
+[![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite-blue?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
 [![License](https://img.shields.io/badge/License-ISC-orange?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
 [![Latest Release](https://img.shields.io/github/v/release/MarcoChiu/localhosttoolbox?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox/releases/latest)
 
 
-一個設計精美、功能強大且**完全在本地端運行**的萬能截圖與 PDF 處理工具箱。本專案採用 **React + Vite** 重構，介面融入了精緻的 **磨砂玻璃質感 (Glassmorphism)** 與響應式深色模式設計，提供流暢、高品質的單頁應用程式 (SPA) 學習與處理體驗。
+一個設計精美、功能強大且**100% 在瀏覽器本地端運行**的萬能 PDF 與圖片處理工具箱。本專案採用 **React + Vite** 重構，介面融入了精緻的 **磨砂玻璃質感 (Glassmorphism)** 與響應式深色模式設計，提供流暢、高品質的單頁應用程式 (SPA) 處理體驗。
 
 > [!IMPORTANT]
-> **隱私第一（Privacy First）**：除了「網頁長截圖」需要透過 Puppeteer 擷取目標網站外，其餘所有 PDF 處理、圖片拼接、壓縮及簡繁轉換功能皆**在瀏覽器端本地完成**，絕不將您的個人隱私檔案上傳至任何第三方伺服器，安全且快速。
+> **隱私第一（Privacy First）**：本工具箱的所有功能皆**在瀏覽器端本地完成**，絕不將您的個人隱私檔案上傳至任何第三方伺服器，安全、快速且支援完全離線使用！
 
 > [!TIP]
 > **下載最新版本**：您可以至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新的穩定發布版本（解壓縮後即可使用）。
@@ -27,11 +27,7 @@
 - **圖片轉 PDF (Image to PDF)**：批次上傳多張圖片（JPG/PNG），調整版面邊距與方向後，打包轉為 PDF。
 - **浮水印與頁碼 (Watermark & Pagination)**：為您的 PDF 本地加上自訂文字浮水印或頁碼，可調整字型大小、顏色、旋轉角度與透明度。
 
-### 🖼️ 圖片與網頁工具
-- **網頁網址長截圖 (Webpage Full Screenshot)**：
-  - 輸入任意網址，後端自動調用 Puppeteer 啟動無頭瀏覽器進行全頁面擷取。
-  - **自動滾動（Scroll for lazy load）**：自動向下滾動以觸發網頁延遲載入圖片，確保內容完整。
-  - **自訂延遲（Delay）**：可設定截圖前等待秒數，確保非同步載入或動畫渲染完畢。
+### 🖼️ 圖片工具
 - **圖片壓縮 (Image Compressor)**：本地調整品質參數，即時預覽壓縮前後的檔案大小對比。
 - **圖片長圖拼接 (Image Stitcher)**：
   - 支援垂直（直式長圖）或水平（橫式寬圖）拼接。
@@ -64,11 +60,6 @@
   - `sortablejs`：提供極致流暢的拖曳重排列表體驗。
   - `opencc-js`：繁簡中文本地端轉換。
 
-### 後端 (Backend)
-- **執行環境**：Node.js (ESM)
-- **伺服器框架**：Express
-- **截圖引擎**：Puppeteer (Headless Chrome)
-
 ---
 
 ## 🚀 快速開始 (Getting Started)
@@ -88,13 +79,6 @@ npm install
 npm run dev
 ```
 啟動後在瀏覽器開啟 `http://localhost:5173` 即可開始體驗！
-
-### 2. 後端伺服器 (網頁長截圖功能)
-如果您需要使用「網頁網址長截圖」功能，請啟動本地端 Puppeteer 服務：
-```bash
-npm start
-```
-服務將運行在 `http://localhost:3000`。前端會自動偵測後端連線狀態。
 
 ---
 
@@ -124,14 +108,13 @@ npm run deploy
 localhosttoolbox/
 ├── src/                        # React 原始碼目錄
 │   ├── components/             # 功能拆分 React 元件 (PDF合併, 拼接等)
-│   ├── App.jsx                 # 全域 layout 與伺服器偵測邏輯
+│   ├── App.jsx                 # 全域 layout
 │   ├── index.css               # 整合 Glassmorphism 美學的樣式表
 │   └── main.jsx                # React 啟動點
 ├── .github/workflows/          # 自動化工作流
 │   └── deploy.yml              # GitHub Actions 自動部署腳本
 ├── vite.config.js              # Vite 設定檔 (包含 base 相對路徑設定)
 ├── index.html                  # 首頁 HTML 模板
-├── server.js                   # Node/Express + Puppeteer 截圖伺服器
 └── package.json                # npm 設定檔與相依套件
 ```
 

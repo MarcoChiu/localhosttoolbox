@@ -110,6 +110,9 @@
 
 input[type="range"] {
     -webkit-appearance: none;
+    /* 給 Chrome, Safari, 新版 Edge */
+    appearance: none;
+    /* 現代標準屬性，加了這行警告通常就會消失 */
     width: 100%;
     height: 6px;
     background: rgba(255, 255, 255, 0.1);
@@ -254,10 +257,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
     flex-direction: column;
     gap: 5px;
     margin-right: 20px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     padding: 6px 12px;
     border-radius: var(--radius-sm);
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .item-crop-row {
@@ -270,7 +273,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .item-crop-row input {
     width: 55px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--item-border);
     color: var(--text-primary);
     border-radius: 4px;

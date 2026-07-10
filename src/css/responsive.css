@@ -1,0 +1,314 @@
+/* =========================================
+   RESPONSIVE: Tablet (≤ 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        height: 90vh;
+        max-height: none;
+    }
+
+    .app-sidebar {
+        width: 195px;
+    }
+
+    .settings-sidebar {
+        width: 240px;
+    }
+
+    .app-main {
+        padding: 20px 18px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE: Mobile (≤ 900px) — Drawer mode
+   ========================================= */
+@media (max-width: 900px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    /* Full-screen card on mobile */
+    .container,
+    .app-container {
+        flex-direction: column;
+        height: 100dvh;
+        min-height: 100dvh;
+        max-height: none;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        overflow: hidden;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: auto;
+        position: static;
+    }
+
+    /* Clip only the main content scroll on mobile, not the whole container */
+    .app-main {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Mobile top bar: sticky at top, visible */
+    .mobile-topbar {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    /* Sidebar becomes a slide-in drawer */
+    .app-sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100dvh;
+        z-index: 100;
+        border-right: 1px solid var(--panel-border);
+        border-bottom: none;
+        padding: 0;
+        background: rgba(7, 11, 19, 0.98);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        transition: left 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: none;
+    }
+
+    .app-sidebar.open {
+        left: 0;
+        box-shadow: 8px 0 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Sidebar internal layout on mobile */
+    .sidebar-header {
+        padding: 20px 20px 0 20px;
+        margin-bottom: 24px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        white-space: normal;
+        padding: 0 12px 20px 12px;
+    }
+
+    .nav-section {
+        display: block;
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .nav-section-title {
+        display: block;
+        font-size: 0.7rem;
+        margin: 0 0 8px 8px;
+    }
+
+    .tab-btn {
+        width: 100%;
+        padding: 10px 14px;
+        margin-bottom: 2px;
+        margin-right: 0;
+        border-radius: var(--radius-md);
+        white-space: normal;
+        text-align: left;
+    }
+
+    .tab-btn.active {
+        border-left: 3px solid #818cf8;
+        border-bottom: none;
+    }
+
+    /* Main content fills remaining space */
+    .app-main {
+        flex: 1;
+        padding: 16px 14px;
+        overflow-y: auto;
+    }
+
+    /* Drop zone: reduce padding on mobile */
+    .drop-zone {
+        padding: 32px 16px;
+    }
+
+    .drop-zone p {
+        font-size: 1rem;
+    }
+
+    /* Tool layouts: stack on mobile */
+    .tool-layout,
+    .tool-layout-reversed {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Settings sidebar: full width on mobile */
+    .settings-sidebar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* HTML editor: stack on mobile */
+    .html-editor-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .render-pane-wrapper {
+        height: auto;
+        min-height: 220px;
+    }
+
+    /* Action bar: wrap to multi-line on mobile */
+    .action-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+        padding-top: 14px;
+    }
+
+    .action-bar .left {
+        width: 100%;
+        order: -1;
+    }
+
+    .action-bar .btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    /* File items: tighter on mobile */
+    .file-item {
+        padding: 10px 12px;
+    }
+
+    .item-thumbnail {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    .file-name {
+        font-size: 0.85rem;
+        white-space: normal;
+        word-break: break-all;
+        overflow: visible;
+        text-overflow: unset;
+    }
+
+    /* Text convert: stack on mobile */
+    .text-convert-container {
+        flex-direction: column;
+        min-height: unset;
+        gap: 12px;
+    }
+
+    .text-convert-pane textarea {
+        min-height: 180px;
+    }
+
+    .text-convert-controls {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    /* URL input group: stack on mobile */
+    .url-input-group {
+        flex-direction: column;
+    }
+
+    /* PDF pages grid: 2 columns on mobile */
+    .pdf-pages-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+    }
+
+    /* PDF meta bar: allow text wrapping */
+    .pdf-meta-bar h3 {
+        max-width: 100%;
+        white-space: normal;
+        font-size: 0.95rem;
+    }
+
+    /* Preset selector: stack on mobile */
+    .preset-selector {
+        flex-wrap: wrap;
+    }
+
+    /* File item controls: hide on very small screens */
+    .file-item-controls {
+        display: none;
+    }
+
+    /* Ambient orbs: scale down on mobile */
+    .ambient-glow,
+    .ambient-glow-2 {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Status message */
+    .status-container {
+        font-size: 0.875rem;
+        padding: 10px 14px;
+    }
+
+    /* Close button for sidebar on mobile */
+    .sidebar-close-btn {
+        display: flex;
+    }
+}
+
+/* =========================================
+   RESPONSIVE: Small Mobile (≤ 480px)
+   ========================================= */
+@media (max-width: 480px) {
+    .drop-zone {
+        padding: 24px 12px;
+    }
+
+    .upload-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .drop-zone p {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    .settings-sidebar {
+        padding: 16px;
+    }
+
+    .app-main {
+        padding: 12px 10px;
+    }
+
+    .action-bar .btn {
+        min-width: 0;
+        font-size: 0.85rem;
+        padding: 10px 12px;
+    }
+
+    .pdf-pages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

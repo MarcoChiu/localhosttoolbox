@@ -1,0 +1,121 @@
+/* PDF Pages Grid Layout */
+.pdf-pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.pdf-page-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--item-border);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.25s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.pdf-page-card:hover {
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.pdf-page-canvas-wrapper {
+    width: 100%;
+    /* aspect-ratio layout fallback for older browsers */
+    aspect-ratio: 1 / 1.414;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 12px;
+}
+
+/* @supports fallback for aspect-ratio if not natively supported */
+@supports not (aspect-ratio: 1/1) {
+    .pdf-page-canvas-wrapper {
+        padding-top: 141.4%;
+        height: 0;
+    }
+    .pdf-page-canvas-wrapper canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.pdf-page-canvas-wrapper canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    /* Removed object-fit as it does not work on non-replaced element canvas natively in older specs */
+}
+
+.pdf-page-footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pdf-page-number {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* PDF Page Split Layout & Selection States */
+.tool-layout-reversed {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 30px;
+    margin-top: 0;
+    height: 100%;
+}
+
+.pdf-page-card.selectable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    border: 1px solid var(--item-border);
+}
+
+.pdf-page-card.selectable:hover {
+    border-color: var(--color-primary-light);
+    background: var(--item-hover-bg);
+}
+
+.pdf-page-card.selectable.selected {
+    border-color: var(--color-success);
+    background: rgba(16, 185, 129, 0.06);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.pdf-page-card.selectable.selected .pdf-page-canvas-wrapper {
+    border-color: var(--color-success);
+}
+
+.pdf-page-card.selectable .pdf-page-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-success);
+}
+
+.pdf-meta-bar h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 450px;
+}

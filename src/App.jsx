@@ -9,6 +9,8 @@ import ImageCompressor from './components/ImageCompressor';
 import ImageStitcher from './components/ImageStitcher';
 import HtmlToImage from './components/HtmlToImage';
 import TextConverter from './components/TextConverter';
+import TaxCalc from './components/TaxCalc';
+import WebScreenshot from './components/WebScreenshot';
 
 function App() {
   const [activeTab, setActiveTab] = useState('tab-pdf');
@@ -52,6 +54,10 @@ function App() {
         return <HtmlToImage {...props} />;
       case 'tab-text-convert':
         return <TextConverter {...props} />;
+      case 'tab-tax-calc':
+        return <TaxCalc />;
+      case 'tab-screenshot':
+        return <WebScreenshot />;
       default:
         return <PdfMerger {...props} />;
     }
@@ -192,11 +198,27 @@ function App() {
 
             <div className="nav-section">
               <h3 className="nav-section-title">文字工具</h3>
-              <button 
-                className={`tab-btn ${activeTab === 'tab-text-convert' ? 'active' : ''}`} 
+              <button
+                className={`tab-btn ${activeTab === 'tab-text-convert' ? 'active' : ''}`}
                 onClick={() => handleTabClick('tab-text-convert')}
               >
                 <span className="icon">🔤</span> 簡繁轉換
+              </button>
+            </div>
+
+            <div className="nav-section">
+              <h3 className="nav-section-title">線上工具</h3>
+              <button
+                className={`tab-btn ${activeTab === 'tab-tax-calc' ? 'active' : ''}`}
+                onClick={() => handleTabClick('tab-tax-calc')}
+              >
+                <span className="icon">💰</span> 營業稅試算
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 'tab-screenshot' ? 'active' : ''}`}
+                onClick={() => handleTabClick('tab-screenshot')}
+              >
+                <span className="icon">📸</span> 網頁截圖
               </button>
             </div>
           </div>

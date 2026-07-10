@@ -1,12 +1,14 @@
-# 🛠️ 本地萬能截圖與 PDF 工具箱 (Localhost Tool Box)
+# 🛠️ 本地萬能截圖與 PDF 工具箱 (React + Vite 版)
+
+🚀 **線上直接使用連結：[https://MarcoChiu.github.io/localhosttoolbox/](https://MarcoChiu.github.io/localhosttoolbox/)**
 
 [![Privacy First](https://img.shields.io/badge/Privacy-100%25_Local-brightgreen?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
-[![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20%7C%20Node-blue?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
+[![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20Node-blue?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
 [![License](https://img.shields.io/badge/License-ISC-orange?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox)
 [![Latest Release](https://img.shields.io/github/v/release/MarcoChiu/localhosttoolbox?style=flat-spec)](https://github.com/MarcoChiu/localhosttoolbox/releases/latest)
 
 
-一個設計精美、功能強大且**完全在本地端運行**的萬能截圖與 PDF 處理工具箱。採用現代暗色毛玻璃（Glassmorphism）風格設計，搭配流暢的微動畫，為您提供極致的視覺美感與流暢的互動體驗。
+一個設計精美、功能強大且**完全在本地端運行**的萬能截圖與 PDF 處理工具箱。本專案採用 **React + Vite** 重構，介面融入了精緻的 **磨砂玻璃質感 (Glassmorphism)** 與響應式深色模式設計，提供流暢、高品質的單頁應用程式 (SPA) 學習與處理體驗。
 
 > [!IMPORTANT]
 > **隱私第一（Privacy First）**：除了「網頁長截圖」需要透過 Puppeteer 擷取目標網站外，其餘所有 PDF 處理、圖片拼接、壓縮及簡繁轉換功能皆**在瀏覽器端本地完成**，絕不將您的個人隱私檔案上傳至任何第三方伺服器，安全且快速。
@@ -54,16 +56,16 @@
 ## 🛠️ 技術棧 (Tech Stack)
 
 ### 前端 (Frontend)
-- **核心**：HTML5 / Vanilla CSS3 / JavaScript (ES6)
-- **第三方函式庫** (皆已本地化，支援 100% 離線使用)：
+- **核心**：React 19 / Vite 6 / Vanilla CSS3
+- **主要依賴** (皆於瀏覽器本地執行，支援 100% 離線使用)：
   - `pdf-lib`：用於 PDF 創建、合併、拆分與浮水印添加。
   - `pdfjs-dist`：用於在前端渲染 PDF 頁面預覽。
   - `html2canvas`：實現將 HTML 模板渲染並導出為圖片。
-  - `SortableJS`：提供極致流暢的拖曳重排列表體驗。
+  - `sortablejs`：提供極致流暢的拖曳重排列表體驗。
   - `opencc-js`：繁簡中文本地端轉換。
 
 ### 後端 (Backend)
-- **執行環境**：Node.js
+- **執行環境**：Node.js (ESM)
 - **伺服器框架**：Express
 - **截圖引擎**：Puppeteer (Headless Chrome)
 
@@ -71,59 +73,66 @@
 
 ## 🚀 快速開始 (Getting Started)
 
-本工具箱支援以下兩種使用方式，您可以依需求選擇：
+### 1. 本地開發環境設置
+確保系統已安裝 [Node.js](https://nodejs.org/)。
+
+```bash
+# 下載/複製儲存庫
+git clone https://github.com/MarcoChiu/localhosttoolbox.git
+cd localhosttoolbox
+
+# 安裝依賴
+npm install
+
+# 啟動前端開發伺服器 (Vite)
+npm run dev
+```
+啟動後在瀏覽器開啟 `http://localhost:5173` 即可開始體驗！
+
+### 2. 後端伺服器 (網頁長截圖功能)
+如果您需要使用「網頁網址長截圖」功能，請啟動本地端 Puppeteer 服務：
+```bash
+npm start
+```
+服務將運行在 `http://localhost:3000`。前端會自動偵測後端連線狀態。
 
 ---
 
-### 🟢 方式 A：免安裝，雙擊即用 (極速推薦)
-如果您**不需要**使用「網頁網址長截圖」功能，本專案**無需進行任何安裝與環境設定**。
+## 🚀 部署至 GitHub Pages
 
-1. **下載專案**：至 [GitHub Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載最新發布的穩定包（`.zip` 或 `.tar.gz`），並解壓縮。
-2. **啟動工具**：直接雙擊資料夾內的 `index.html`，即可直接在您的瀏覽器中運行。
-3. **支援功能**：
-   - PDF 合併、PDF 拆分、PDF 轉圖片、圖片轉 PDF、浮水印/頁碼。
-   - 圖片壓縮、圖片拼接、HTML 轉圖、離線簡繁轉換。
-   - 所有運算完全在瀏覽器記憶體本地進行，不經過伺服器，安全且流暢。
+本專案支援**本地一鍵部署**與 **GitHub Actions 自動化部署**雙重模式：
 
----
+### 方式一：本地一鍵部署 (推薦，最快速)
+直接在終端機執行：
+```bash
+npm run deploy
+```
+系統會自動在本地完成 `build` 打包，並使用 `gh-pages` 工具將產出推送到 `gh-pages` 分支完成發佈。
 
-### ⚡ 方式 B：安裝並啟動本地端伺服器 (完整功能)
-如果您需要使用 **網頁長截圖 (Puppeteer)** 功能，請依照以下步驟部署本地端後端伺服器：
+> [!IMPORTANT]
+> **GitHub 設定調整**：
+> 當您使用此部署方式時，請確認您 GitHub 專案倉庫的 **Settings** -> **Pages** 中，**Source** 設為 **`Deploy from a branch`**，並將分支選取為 **`gh-pages`**，目錄選取為 **`/ (root)`**。
 
-1. **安裝 Node.js**：確保您的電腦已安裝 [Node.js](https://nodejs.org/) (建議安裝 LTS 版本)。
-2. **複製或下載專案**：
-   - 前往 [Releases](https://github.com/MarcoChiu/localhosttoolbox/releases/latest) 下載解壓。
-   - 或使用 Git 複製倉庫：
-     ```bash
-     git clone https://github.com/MarcoChiu/localhosttoolbox.git
-     cd localhosttoolbox
-     ```
-3. **安裝 Node.js 依賴套件** (僅需執行一次，這會自動下載無頭瀏覽器 Puppeteer 等套件)：
-   ```bash
-   npm install
-   ```
-4. **啟動本地伺服器**：
-   ```bash
-   npm start
-   ```
-5. **開啟瀏覽器體驗**：在瀏覽器中開啟以下網址即可開始使用所有功能（包括網頁長截圖）：
-   ```text
-   http://localhost:3000
-   ```
+### 方式二：GitHub Actions 自動化部署
+我們已配置了 `.github/workflows/deploy.yml`。只要您將程式碼推送至 `main` 分支，GitHub 將在雲端自動進行建置並發佈。
 
 ---
 
 ## 📁 專案結構 (Project Directory Layout)
 
 ```text
-├── js/                  # 功能模組腳本 (拆分、浮水印、圖片轉PDF)
-├── lib/                 # 本地第三方 JS 庫 (確保離線可用性)
-├── app.js               # 前端核心控制與 UI 交互邏輯
-├── index.html           # 網頁結構與各功能分頁
-├── style.css            # 毛玻璃暗色系樣式表
-├── server.js            # Express 後端與 Puppeteer 截圖服務
-├── package.json         # 專案依賴與腳本配置
-└── README.md            # 本說明文件
+localhosttoolbox/
+├── src/                        # React 原始碼目錄
+│   ├── components/             # 功能拆分 React 元件 (PDF合併, 拼接等)
+│   ├── App.jsx                 # 全域 layout 與伺服器偵測邏輯
+│   ├── index.css               # 整合 Glassmorphism 美學的樣式表
+│   └── main.jsx                # React 啟動點
+├── .github/workflows/          # 自動化工作流
+│   └── deploy.yml              # GitHub Actions 自動部署腳本
+├── vite.config.js              # Vite 設定檔 (包含 base 相對路徑設定)
+├── index.html                  # 首頁 HTML 模板
+├── server.js                   # Node/Express + Puppeteer 截圖伺服器
+└── package.json                # npm 設定檔與相依套件
 ```
 
 ---

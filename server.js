@@ -1,7 +1,12 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-const cors = require('cors');
-const path = require('path');
+import express from 'express';
+import puppeteer from 'puppeteer';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Node.js ESM __dirname fallback
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,8 +14,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the current directory
-app.use(express.static(path.join(__dirname)));
+// Serve static files from the build output (dist directory)
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Endpoint to capture full page screenshot
 app.post('/api/screenshot', async (req, res) => {
@@ -98,6 +103,11 @@ app.post('/api/screenshot', async (req, res) => {
 // Health check endpoint for the frontend to detect backend
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Screenshot API is running locally.' });
+});
+
+// Fallback all frontend routes to dist/index.html (SPA)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {

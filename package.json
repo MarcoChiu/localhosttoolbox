@@ -10,7 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "git add . && git commit -m \"auto deploy update\" && git push origin main && gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -168,6 +168,10 @@
     .render-pane-wrapper {
         height: auto;
         min-height: 220px;
+        justify-content: flex-start !important;
+        overflow-x: auto;
+        width: 100%;
+        padding: 10px 0;
     }
 
     /* Action bar: wrap to multi-line on mobile */
@@ -247,9 +251,18 @@
         flex-wrap: wrap;
     }
 
-    /* File item controls: hide on very small screens */
+    /* File item controls: wrap on mobile instead of hiding */
+    .file-item {
+        flex-wrap: wrap;
+    }
     .file-item-controls {
-        display: none;
+        display: flex !important;
+        width: 100%;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.06);
+        gap: 12px;
+        justify-content: flex-start;
     }
 
     /* Ambient orbs: scale down on mobile */
@@ -268,6 +281,14 @@
     /* Close button for sidebar on mobile */
     .sidebar-close-btn {
         display: flex;
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Hamburger menu touch target */
+    .hamburger-btn {
+        width: 44px;
+        height: 44px;
     }
 }
 

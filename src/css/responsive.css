@@ -30,7 +30,10 @@
 @media (max-width: 900px) {
     body {
         padding: 0;
-        align-items: flex-start;
+    }
+
+    #root {
+        padding: 0;
     }
 
     /* Full-screen card on mobile */

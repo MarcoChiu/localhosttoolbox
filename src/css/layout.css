@@ -69,9 +69,9 @@
 
 /* Main Container */
 .container {
-    width: 1300px;
-    max-width: 100%;
-    flex-shrink: 0;
+    width: 100%;
+    max-width: var(--container-width, 1300px);
+    flex-grow: 1;
     background: var(--panel-bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);

@@ -39,7 +39,7 @@ const WebScreenshot = () => {
         apiUrl.searchParams.set('url', targetUrl);
         apiUrl.searchParams.set('screenshot', 'true');
         apiUrl.searchParams.set('meta', 'false');
-        apiUrl.searchParams.set('embed', 'screenshot.url');
+        apiUrl.searchParams.set('fullPage', 'true');
         apiUrl.searchParams.set('viewport.width', String(viewportWidth));
         apiUrl.searchParams.set('viewport.height', '900');
 
@@ -54,8 +54,8 @@ const WebScreenshot = () => {
     };
 
     const tryThumio = (targetUrl) => {
-        // Thum.io 直接作為 img src 使用，無需 API 呼叫
-        const thumbUrl = `https://image.thum.io/get/width/${viewportWidth}/crop/900/${encodeURIComponent(targetUrl)}`;
+        // Thum.io 使用 ?url= 格式來處理編碼後的網址，避免 400 錯誤
+        const thumbUrl = `https://image.thum.io/get/width/${viewportWidth}/crop/900/?url=${encodeURIComponent(targetUrl)}`;
         return { url: thumbUrl, source: 'Thum.io', fullPage: false };
     };
 

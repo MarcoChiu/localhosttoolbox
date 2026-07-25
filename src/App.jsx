@@ -115,17 +115,7 @@ function App() {
         <aside className={`app-sidebar ${drawerOpen ? 'open' : ''}`} id="app-sidebar">
           <div className="sidebar-header">
             <div className="logo-box">
-              <svg viewBox="0 0 24 24" width="28" height="28" stroke="url(#primary-gradient)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <defs>
-                  <linearGradient id="primary-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#818cf8" />
-                    <stop offset="100%" stopColor="#38bdf8" />
-                  </linearGradient>
-                </defs>
-                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                <path d="M2 17l10 5 10-5"></path>
-                <path d="M2 12l10 5 10-5"></path>
-              </svg>
+              <img src="./logo.png" alt="Logo" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
             </div>
             <div className="sidebar-title" style={{ flex: 1 }}>
               <h1>本地工具箱</h1>

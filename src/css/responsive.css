@@ -344,4 +344,21 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
+
+    .tax-result-card {
+        padding: 8px 4px;
+    }
+
+    .tax-result-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .tax-result-row .total-amount {
+        font-size: 1.15rem;
+    }
+
+    .text-convert-controls {
+        gap: 10px;
+    }
 }

@@ -198,7 +198,7 @@ const WebScreenshot = () => {
                     </div>
 
                     {/* URL 輸入列 */}
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div className="url-input-group" style={{ display: 'flex', gap: '10px' }}>
                         <input
                             id="screenshot-url-input"
                             type="text"

@@ -82,7 +82,7 @@ function TextConverter({ showStatus, hideStatus }) {
         />
       </div>
       <div className="text-convert-controls">
-        <button onClick={handleS2T} className="btn-primary" style={{ marginBottom: '10px' }}>
+        <button onClick={handleS2T} className="btn-primary">
           簡 ➔ 繁
         </button>
         <button onClick={handleT2S} className="btn-primary">

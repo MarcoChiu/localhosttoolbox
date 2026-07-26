@@ -117,19 +117,19 @@ const TaxCalc = () => {
                     <div className="drop-zone" style={{ cursor: 'default' }}>
                         <div className="drop-zone-content">
                             <div className="tax-result-card">
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                <div className="tax-result-row">
                                     <span style={{ color: 'var(--text-muted)' }}>銷售額 (未稅)：</span>
                                     <span style={{ color: 'var(--text-primary)', fontWeight: '600' }}>{result.preTax.toLocaleString()}</span>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                <div className="tax-result-row">
                                     <span style={{ color: 'var(--text-muted)' }}>營業稅額 (5%)：</span>
                                     <span style={{ color: 'var(--color-primary-light)', fontWeight: 'bold' }}>{result.tax.toLocaleString()}</span>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', borderTop: '1px dashed var(--item-border)', paddingTop: '15px' }}>
+                                <div className="tax-result-row total-row">
                                     <span style={{ color: 'var(--text-muted)' }}>總計金額 (含稅)：</span>
-                                    <span style={{ color: 'var(--text-primary)', fontWeight: 'bold', fontSize: '1.4rem' }}>{result.total.toLocaleString()}</span>
+                                    <span className="total-amount">{result.total.toLocaleString()}</span>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', fontSize: '1rem' }}>
+                                <div className="tax-result-row" style={{ marginTop: '20px', fontSize: '1rem' }}>
                                     <span style={{ color: 'var(--text-muted)' }}>總計大寫：</span>
                                     <span style={{ color: '#10b981', fontWeight: '500' }}>{chineseTotal}</span>
                                 </div>
